@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>{% block title %}Блог{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Мой блог</h1>
+        <nav>
+            <a href="{% url 'post_list' %}">Главная</a> 
+            <a href="{% url 'add_post' %}">Добавить пост</a>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>© 2024 Мой блог</footer>
+</body>
+</html>

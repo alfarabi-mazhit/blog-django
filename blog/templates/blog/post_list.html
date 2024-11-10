@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Список постов{% endblock %}
+
+{% block content %}
+<div class="blog-container">
+    <h1 class="blog-title">Блог</h1>
+
+    <!-- Форма поиска по автору -->
+    <form method="get" action="{% url 'post_list' %}" class="search-form">
+        <input type="text" name="author" placeholder="Имя автора" value="{{ request.GET.author }}" class="search-input">
+        <button type="submit" class="search-button">Поиск по автору</button>
+    </form>
+
+    <ul class="post-list">
+        {% for post in posts %}
+            <li class="post-item">
+                <a href="{% url 'post_detail' post.id %}" class="post-title">{{ post.title }}</a> 
+                <span class="post-author">- {{ post.author }}</span>
+                <span class="post-date">- {{ post.published_date|date:"d M Y" }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

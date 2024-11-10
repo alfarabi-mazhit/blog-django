@@ -1,0 +1,45 @@
+{% extends 'blog/base.html' %}
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<h1 class="post-title">{{ post.title }}</h1>
+{% if post.image %}
+    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-image">
+{% endif %}
+<p class="post-content">{{ post.content }}</p>
+<div class="post-meta">
+    <p>Автор: {{ post.author }}</p>
+    <p>Опубликовано: {{ post.published_date|date:"d M Y H:i" }}</p>
+</div>
+
+<div class="categories">
+    <h2>Категории</h2>
+    <ul class="category-list">
+        {% for category in post.categories.all %}
+            <li>{{ category.name }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="comments">
+    <h2>Комментарии</h2>
+    <ul class="comment-list">
+        {% for comment in post.comment_set.all %}
+            <li>
+                <span class="comment-author">{{ comment.author }}:</span>
+                {{ comment.content }}
+                <span class="comment-date">({{ comment.created_date|date:"d M Y H:i" }})</span>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="add-comment-form">
+    <h3>Добавить комментарий</h3>
+    <form method="post" action="{% url 'add_comment' post.id %}">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <button type="submit">Добавить комментарий</button>
+    </form>
+</div>
+{% endblock %}

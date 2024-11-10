@@ -1,0 +1,7 @@
+<head><link rel="stylesheet" href="/static/css/styles.css"></head>
+<h1 class="form-title">Добавить новый пост</h1>
+<form method="post" enctype="multipart/form-data" class="post-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="submit-button">Добавить пост</button>
+</form>
